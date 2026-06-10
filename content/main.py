@@ -1,5 +1,6 @@
 # 메인 페이지 — 허브 역할. 모든 키워드를 밀어 넣지 않고 상세 페이지로 연결한다.
 from .site import BASE_URL, BRAND, PHONE, PHONE_DISPLAY
+from .pricing import PRICING
 
 _JSONLD = f"""<script type="application/ld+json">
 {{
@@ -14,7 +15,7 @@ _JSONLD = f"""<script type="application/ld+json">
     "name": "서울특별시 노원구"
   }},
   "openingHours": "Mo-Su 00:00-24:00",
-  "priceRange": "₩₩"
+  "priceRange": "₩90,000 - ₩180,000"
 }}
 </script>
 <script type="application/ld+json">
@@ -195,6 +196,7 @@ _BODY = f"""
 </div>
 </section>
 
+{PRICING}
 <section id="contact" class="cta">
 <h2>예약문의</h2>
 <p>노원구 방문 관리 예약과 상담은 전화로 가장 빠르게 진행됩니다. 위치와 희망 시간을 알려주시면 가능 여부를 바로 확인해 드립니다.</p>

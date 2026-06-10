@@ -1,6 +1,7 @@
 # 지하철역별 안내 — 허브 1개 + 역 13개.
 # 환승역도 URL은 하나만 사용한다. 출구별·역+테마 조합 페이지는 만들지 않는다.
 from .site import PHONE, PHONE_DISPLAY
+from .pricing import PRICING
 
 _CTA = f"""
 <section class="cta">
@@ -63,7 +64,7 @@ _HUB_BODY = """
 <p>역과의 거리는 가능 여부와 무관합니다. 노원구 전지역이 방문 범위이며, 역 페이지는 위치 설명을 돕는 안내일 뿐입니다.</p>
 </div>
 </section>
-""" + _CTA
+""" + PRICING + _CTA
 
 
 def _station(slug, name, desc, body):
@@ -72,7 +73,7 @@ def _station(slug, name, desc, body):
         "title": f"{name} 인근 방문 관리 안내 | 노원 출장마사지·홈타이",
         "desc": desc,
         "h1": f"{name} 인근 방문 관리 안내",
-        "body": body + _CTA,
+        "body": body + PRICING + _CTA,
         "breadcrumb": [("지하철역별 안내", "/nowon-gu/stations/"), (name, None)],
     }
 

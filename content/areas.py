@@ -1,6 +1,7 @@
 # 지역별 안내 — 노원구 허브 1개 + 대표 동 5개.
 # 숫자 행정동(월계1동, 상계7동 등) 개별 페이지는 만들지 않는다.
 from .site import PHONE, PHONE_DISPLAY
+from .pricing import PRICING
 
 _CTA = f"""
 <section class="cta">
@@ -56,7 +57,7 @@ _HUB_BODY = """
 <p>경계 지역은 어느 동 페이지를 보셔도 무방합니다. 실제 방문은 주소 기준으로 진행되므로 예약 전화에서 정확한 주소만 알려주시면 됩니다.</p>
 </div>
 </section>
-""" + _CTA
+""" + PRICING + _CTA
 
 
 def _dong(slug, name, title_name, desc, sections):
@@ -65,7 +66,7 @@ def _dong(slug, name, title_name, desc, sections):
         "title": f"{title_name} 방문 관리 안내 | 노원 출장마사지·홈타이",
         "desc": desc,
         "h1": f"{name} 방문 관리 안내",
-        "body": sections + _CTA,
+        "body": sections + PRICING + _CTA,
         "breadcrumb": [("지역별 안내", "/nowon-gu/"), (name, None)],
     }
 
