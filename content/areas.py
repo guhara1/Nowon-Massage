@@ -63,7 +63,7 @@ _HUB_BODY = """
 def _dong(slug, name, title_name, desc, sections):
     return {
         "path": f"nowon-gu/{slug}/",
-        "title": f"{title_name} 방문 관리 안내 | 노원 출장마사지·홈타이",
+        "title": f"{title_name} 출장마사지·홈타이 | 노원 방문 관리 예약 안내",
         "desc": desc,
         "h1": f"{name} 방문 관리 안내",
         "body": sections + PRICING + _CTA,
@@ -358,7 +358,7 @@ SANGGYE = _dong(
 
 HUB = {
     "path": "nowon-gu/",
-    "title": "노원구 지역별 안내 | 월계동·공릉동·하계동·중계동·상계동",
+    "title": "노원구 출장마사지·홈타이 | 지역별 방문 관리 안내",
     "desc": "노원구 방문 관리 지역 안내입니다. 월계동, 공릉동, 하계동, 중계동, 상계동 다섯 개 대표 동 기준으로 생활권 특징과 방문 조건을 확인하세요.",
     "h1": "노원구 지역별 안내",
     "body": _HUB_BODY,

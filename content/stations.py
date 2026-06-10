@@ -70,7 +70,7 @@ _HUB_BODY = """
 def _station(slug, name, desc, body):
     return {
         "path": f"nowon-gu/stations/{slug}/",
-        "title": f"{name} 인근 방문 관리 안내 | 노원 출장마사지·홈타이",
+        "title": f"{name} 출장마사지·홈타이 | 역세권 방문 관리 안내",
         "desc": desc,
         "h1": f"{name} 인근 방문 관리 안내",
         "body": body + PRICING + _CTA,
@@ -769,7 +769,7 @@ HWARANGDAE_ST = _station(
 
 HUB = {
     "path": "nowon-gu/stations/",
-    "title": "노원구 지하철역별 안내 | 1·4·6·7호선 역세권 방문 관리",
+    "title": "노원 지하철역 출장마사지·홈타이 | 1·4·6·7호선 역세권 안내",
     "desc": "노원구 지하철역 인근 방문 관리 안내입니다. 노원역, 상계역, 수락산역, 하계역, 공릉역 등 1·4·6·7호선 13개 역세권 기준으로 확인하세요.",
     "h1": "노원구 지하철역별 안내",
     "body": _HUB_BODY,

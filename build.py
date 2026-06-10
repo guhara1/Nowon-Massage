@@ -24,8 +24,10 @@ MIN_INDEX_CHARS = 2000
 
 
 def text_length(body_html: str) -> int:
-    """태그를 제거한 본문 글자수(공백 포함, 연속 공백은 1자)."""
-    text = re.sub(r"<[^>]+>", " ", body_html)
+    """태그를 제거한 본문 글자수(공백 포함, 연속 공백은 1자).
+    공통 요금 블록은 페이지 고유 본문이 아니므로 측정에서 제외한다."""
+    text = re.sub(r'<section class="pricing">.*?</section>', " ", body_html, flags=re.S)
+    text = re.sub(r"<[^>]+>", " ", text)
     text = html.unescape(text)
     text = re.sub(r"\s+", " ", text).strip()
     return len(text)
@@ -147,6 +149,11 @@ def render_page(page: dict) -> str:
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:site_name" content="{BRAND}">
+<meta property="og:image" content="{BASE_URL.rstrip('/')}/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{BASE_URL.rstrip('/')}/assets/og-image.png">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -216,6 +223,7 @@ def render_page(page: dict) -> str:
     <nav class="footer-col" aria-label="정책 및 기준">
       <p class="footer-title">정책</p>
       <ul>
+        <li><a href="/about/">운영자 소개</a></li>
         <li><a href="/support/privacy/">개인정보처리방침</a></li>
         <li><a href="/support/terms/">이용약관</a></li>
         <li><a href="/guide/#hygiene">위생·안전 기준</a></li>
@@ -284,7 +292,7 @@ def build() -> None:
     width = max(len(p) for p, _, _ in report)
     print(f"{'PATH'.ljust(width)}  CHARS  ROBOTS")
     for p, c, r in sorted(report):
-        flag = "" if (r == "noindex" or c >= MIN_INDEX_CHARS) else "  ⚠"
+        flag = "" if (r == "noindex" or MIN_INDEX_CHARS <= c <= 2500) else "  ⚠"
         print(f"{p.ljust(width)}  {str(c).rjust(5)}  {r}{flag}")
     print(f"\n{len(report)} pages built, {len(sitemap_urls)} in sitemap.")
 

@@ -21,8 +21,9 @@ def _article_jsonld(slug, headline, desc, date):
   "datePublished": "{date}",
   "dateModified": "{date}",
   "mainEntityOfPage": "{BASE_URL}/magazine/{slug}/",
-  "author": {{ "@type": "Organization", "name": "{BRAND}" }},
-  "publisher": {{ "@type": "Organization", "name": "{BRAND}" }}
+  "author": {{ "@type": "Organization", "name": "{BRAND} 편집팀", "url": "{BASE_URL}/about/" }},
+  "publisher": {{ "@type": "Organization", "name": "{BRAND}", "logo": {{ "@type": "ImageObject", "url": "{BASE_URL}/assets/icon-512.png" }} }},
+  "image": "{BASE_URL}/assets/og-image.png"
 }}
 </script>
 """
@@ -34,7 +35,7 @@ def _post(slug, h1, title, desc, date, body):
         "title": title,
         "desc": desc,
         "h1": h1,
-        "body": f'<p class="post-meta"><time datetime="{date}">{date.replace("-", ". ")}</time> · {BRAND} 매거진</p>' + body + _CTA,
+        "body": f'<p class="post-meta"><time datetime="{date}">{date.replace("-", ". ")}</time> · 글 <a href="/about/">{BRAND} 편집팀</a> · 상담 실무 검수</p>' + body + _CTA,
         "breadcrumb": [("매거진", "/magazine/"), (h1, None)],
         "extra_head": _article_jsonld(slug, h1, desc, date),
     }
