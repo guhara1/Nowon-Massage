@@ -66,6 +66,42 @@ def render_breadcrumb(crumbs) -> str:
     return "".join(parts)
 
 
+def inject_toc(body: str):
+    """본문 섹션(h2)에 id를 보장하고 좌측 목차 데이터를 만든다."""
+    items = []
+    counter = [0]
+
+    def repl(m):
+        attrs, title = m.group(1), m.group(2)
+        idm = re.search(r'id="([^"]+)"', attrs)
+        if idm:
+            sid = idm.group(1)
+            opening = f"<section{attrs}>"
+        else:
+            counter[0] += 1
+            sid = f"sec-{counter[0]}"
+            opening = f'<section id="{sid}"{attrs}>'
+        label = re.sub(r"<[^>]+>", "", title).strip()
+        items.append((sid, label))
+        return f"{opening}<h2>{title}</h2>"
+
+    body = re.sub(r"<section([^>]*)>\s*<h2>(.*?)</h2>", repl, body, flags=re.S)
+    return body, items
+
+
+def render_toc(items) -> str:
+    if len(items) < 3:
+        return ""
+    links = "".join(
+        f'<li><a href="#{sid}">{label}</a></li>' for sid, label in items
+    )
+    return (
+        '<aside class="page-toc"><nav aria-label="페이지 목차">'
+        '<p class="toc-title">목차</p>'
+        f"<ul>{links}</ul></nav></aside>"
+    )
+
+
 def render_page(page: dict) -> str:
     path = page["path"]
     title = page["title"]
@@ -93,6 +129,10 @@ def render_page(page: dict) -> str:
 
     h1_html = "" if hero else f"<h1>{h1}</h1>"
 
+    body, toc_items = inject_toc(body)
+    toc_html = render_toc(toc_items)
+    layout_cls = "page-layout has-toc" if toc_html else "page-layout"
+
     return f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -107,6 +147,9 @@ def render_page(page: dict) -> str:
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:site_name" content="{BRAND}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
 {extra_head}</head>
 <body>
@@ -124,10 +167,13 @@ def render_page(page: dict) -> str:
   </nav>
 </header>
 {page_head}<main class="site-main">
-  <div class="container">
-    {render_breadcrumb(crumbs)}
-    {h1_html}
-    {body}
+  <div class="container {layout_cls}">
+    {toc_html}
+    <article class="page-content">
+      {render_breadcrumb(crumbs)}
+      {h1_html}
+      {body}
+    </article>
   </div>
 </main>
 <footer class="site-footer">

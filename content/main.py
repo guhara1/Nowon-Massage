@@ -69,7 +69,7 @@ _JSONLD = f"""<script type="application/ld+json">
 
 _HERO = f"""<section class="hero">
   <div class="hero-inner">
-    <p class="hero-badge">노원구 전지역 방문 · 24시간 예약 상담</p>
+    <p class="hero-badge">Premium Visiting Spa · 노원구 전지역</p>
     <h1>노원 출장마사지·홈타이<br>예약 안내</h1>
     <p class="hero-lead">샵까지 갈 필요 없이, 계신 곳에서 받는 프리미엄 방문 관리.<br>자택·오피스텔·숙소 어디든 전화 한 통이면 예약이 끝납니다.</p>
     <div class="hero-actions">
