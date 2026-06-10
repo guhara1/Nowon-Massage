@@ -10,5 +10,5 @@ Allow: /
 User-agent: Yeti
 Allow: /
 
-Sitemap: https://www.nowon-black.example.com/sitemap.xml
-Sitemap: https://www.nowon-black.example.com/rss.xml
+Sitemap: https://nowon-massage.pages.dev/sitemap.xml
+Sitemap: https://nowon-massage.pages.dev/rss.xml
