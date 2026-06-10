@@ -365,18 +365,51 @@ th { background: var(--panel-2); color: var(--gold-soft); font-family: var(--ser
 /* ── 푸터 ─────────────────────────────── */
 .site-footer {
   border-top: 1px solid var(--line); background: var(--bg-2);
-  padding: 44px 0 56px; font-size: 0.86rem; color: var(--text-dim);
+  font-size: 0.86rem; color: var(--text-dim);
 }
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.4fr) 1fr 1fr 1fr;
+  gap: 40px;
+  padding-top: 48px; padding-bottom: 40px;
+}
+.footer-col ul { list-style: none; margin: 0; }
+.footer-col li { margin: 0 0 9px; }
+.footer-col a { color: var(--text-dim); }
+.footer-col a:hover { color: var(--gold-soft); }
 .footer-brand {
   font-family: var(--serif);
-  color: var(--gold-soft); font-weight: 700; font-size: 1.05rem;
-  letter-spacing: 0.12em; margin-bottom: 8px;
+  color: var(--gold-soft); font-weight: 700; font-size: 1.12rem;
+  letter-spacing: 0.12em; margin-bottom: 12px;
 }
-.footer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 16px; margin: 12px 0 0; }
-.footer-links li { margin: 0; }
-.footer-links a { color: var(--text-dim); }
-.footer-links a:hover { color: var(--gold-soft); }
-.footer-copy { margin-top: 16px; font-size: 0.78rem; opacity: 0.7; }
+.footer-desc { font-size: 0.84rem; line-height: 1.9; margin-bottom: 16px; }
+.footer-contact { font-style: normal; display: flex; flex-direction: column; gap: 5px; }
+.footer-contact-row { display: block; }
+.footer-contact a { color: var(--gold-soft); font-weight: 700; }
+.footer-label {
+  display: inline-block; min-width: 78px;
+  color: var(--gold); font-size: 0.78rem; letter-spacing: 0.08em;
+}
+.footer-title {
+  font-family: var(--serif);
+  color: var(--gold); font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.3em; margin-bottom: 16px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--line);
+}
+.footer-bottom { border-top: 1px solid var(--line); }
+.footer-bottom-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px;
+  padding-top: 18px; padding-bottom: 20px;
+}
+.footer-copy { font-size: 0.78rem; opacity: 0.75; margin: 0; }
+.footer-note { font-size: 0.76rem; opacity: 0.55; margin: 0; }
+
+@media (max-width: 920px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; padding-top: 36px; }
+  .footer-about { grid-column: 1 / -1; }
+  .footer-bottom-inner { flex-direction: column; align-items: flex-start; padding-bottom: 84px; }
+}
 
 /* 플로팅 전화 — 우측 하단 원형 버튼 */
 .call-fab {
