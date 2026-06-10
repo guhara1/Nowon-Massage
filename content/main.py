@@ -67,6 +67,25 @@ _JSONLD = f"""<script type="application/ld+json">
 </script>
 """
 
+_HERO = f"""<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-badge">노원구 전지역 방문 · 24시간 예약 상담</p>
+    <h1>노원 출장마사지·홈타이<br>예약 안내</h1>
+    <p class="hero-lead">샵까지 갈 필요 없이, 계신 곳에서 받는 프리미엄 방문 관리.<br>자택·오피스텔·숙소 어디든 전화 한 통이면 예약이 끝납니다.</p>
+    <div class="hero-actions">
+      <a class="hero-btn primary" href="tel:{PHONE}">📞 {PHONE_DISPLAY}</a>
+      <a class="hero-btn" href="/courses/">코스 안내 보기</a>
+    </div>
+    <ul class="hero-stats">
+      <li><strong>5개</strong><span>대표 지역</span></li>
+      <li><strong>13개</strong><span>역세권 안내</span></li>
+      <li><strong>14개</strong><span>관리 테마</span></li>
+      <li><strong>24시간</strong><span>예약 상담</span></li>
+    </ul>
+  </div>
+</section>
+"""
+
 _BODY = f"""
 <section id="service">
 <h2>노원 출장마사지·홈타이 서비스 안내</h2>
@@ -191,4 +210,5 @@ PAGE = {
     "body": _BODY,
     "extra_head": _JSONLD,
     "breadcrumb": [],
+    "hero": _HERO,
 }

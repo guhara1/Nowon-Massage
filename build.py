@@ -74,6 +74,7 @@ def render_page(page: dict) -> str:
     body = page["body"]
     crumbs = page.get("breadcrumb") or []
     extra_head = page.get("extra_head", "")
+    hero = page.get("hero", "")
 
     chars = text_length(body)
     noindex = page.get("noindex", False) or chars < MIN_INDEX_CHARS
@@ -83,6 +84,14 @@ def render_page(page: dict) -> str:
         else '<meta name="robots" content="index,follow">'
     )
     canonical = BASE_URL.rstrip("/") + "/" + path
+
+    # 히어로가 있는 페이지(메인)는 H1을 히어로 안에서 출력한다.
+    if hero:
+        page_head = hero
+    else:
+        page_head = ""
+
+    h1_html = "" if hero else f"<h1>{h1}</h1>"
 
     return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -102,17 +111,22 @@ def render_page(page: dict) -> str:
 {extra_head}</head>
 <body>
 <header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="/"><span class="brand-mark">N</span> {BRAND}</a>
-    <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">☰</button>
-    <nav class="main-nav" aria-label="주 메뉴"><ul class="nav-list">{render_nav(path)}</ul></nav>
-    <a class="header-call" href="tel:{PHONE}">{PHONE_DISPLAY}</a>
+  <div class="header-top">
+    <div class="header-inner">
+      <a class="brand" href="/"><span class="brand-mark">N</span> {BRAND}</a>
+      <p class="header-tagline">노원구 전지역 방문 관리 · 24시간 상담</p>
+      <a class="header-call" href="tel:{PHONE}"><span class="call-label">예약전화</span> {PHONE_DISPLAY}</a>
+      <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
   </div>
+  <nav class="main-nav" aria-label="주 메뉴">
+    <div class="nav-inner"><ul class="nav-list">{render_nav(path)}</ul></div>
+  </nav>
 </header>
-<main class="site-main">
+{page_head}<main class="site-main">
   <div class="container">
     {render_breadcrumb(crumbs)}
-    <h1>{h1}</h1>
+    {h1_html}
     {body}
   </div>
 </main>

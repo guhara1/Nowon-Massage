@@ -13,7 +13,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html { scroll-behavior: smooth; scroll-padding-top: 120px; }
 
 body {
   background: var(--bg);
@@ -28,57 +28,143 @@ a:hover { color: var(--gold); }
 
 .container { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
 
-/* ── 헤더 ───────────────────────────── */
+/* ── 헤더 (2단: 브랜드/전화 + 메뉴) ───── */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(13, 13, 15, 0.96);
+  background: rgba(13, 13, 15, 0.97);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(8px);
 }
+.header-top { border-bottom: 1px solid var(--line); }
 .header-inner {
   max-width: var(--max); margin: 0 auto; padding: 0 20px;
-  display: flex; align-items: center; gap: 16px; min-height: 64px;
+  display: flex; align-items: center; gap: 18px; min-height: 62px;
 }
 .brand {
-  font-size: 1.05rem; font-weight: 700; color: var(--gold);
-  letter-spacing: 0.04em; white-space: nowrap;
+  font-size: 1.15rem; font-weight: 800; color: var(--gold);
+  letter-spacing: 0.06em; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 8px;
 }
 .brand-mark {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border: 1px solid var(--gold);
-  border-radius: 50%; font-size: 0.85rem; margin-right: 4px;
+  width: 30px; height: 30px; border: 1px solid var(--gold);
+  border-radius: 50%; font-size: 0.85rem;
+}
+.header-tagline {
+  font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.02em;
+  border-left: 1px solid var(--line); padding-left: 18px; white-space: nowrap;
 }
 .header-call {
-  margin-left: auto; white-space: nowrap; font-weight: 700;
-  color: var(--gold); border: 1px solid var(--gold);
-  border-radius: 20px; padding: 6px 16px; font-size: 0.9rem;
+  margin-left: auto; white-space: nowrap; font-weight: 800;
+  color: #15120b; background: var(--gold);
+  border-radius: 24px; padding: 8px 20px; font-size: 0.95rem;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.15s;
 }
-.nav-toggle {
-  display: none; background: none; border: 1px solid var(--line);
-  color: var(--text); font-size: 1.2rem; padding: 4px 10px;
-  border-radius: 6px; cursor: pointer;
+.header-call:hover { background: var(--gold-soft); color: #15120b; }
+.call-label {
+  font-size: 0.72rem; font-weight: 600; opacity: 0.75;
+  border-right: 1px solid rgba(21, 18, 11, 0.3); padding-right: 8px;
 }
 
-/* ── 내비게이션 ─────────────────────── */
-.nav-list { list-style: none; display: flex; flex-wrap: wrap; }
+/* 햄버거 버튼 */
+.nav-toggle {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 42px; height: 38px; padding: 0 9px;
+  background: none; border: 1px solid var(--line);
+  border-radius: 8px; cursor: pointer;
+}
+.nav-toggle span {
+  display: block; height: 2px; width: 100%;
+  background: var(--gold); border-radius: 2px; transition: 0.2s;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── 내비게이션 (전용 행) ─────────────── */
+.nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 12px; }
+.nav-list {
+  list-style: none; display: flex; flex-wrap: nowrap;
+  justify-content: center; overflow: visible;
+}
 .nav-item { position: relative; }
 .nav-item > a {
-  display: block; padding: 18px 11px; font-size: 0.92rem; color: var(--text);
+  display: block; padding: 13px 13px; font-size: 0.93rem; color: var(--text);
+  white-space: nowrap; border-bottom: 2px solid transparent;
 }
-.nav-item.is-active > a, .nav-item > a:hover { color: var(--gold); }
+.nav-item.is-active > a { color: var(--gold); border-bottom-color: var(--gold); }
+.nav-item > a:hover { color: var(--gold); }
 .sub-menu {
-  display: none; position: absolute; top: 100%; left: 0;
-  min-width: 180px; max-height: 70vh; overflow-y: auto;
+  display: none; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  min-width: 190px; max-height: 70vh; overflow-y: auto;
   background: var(--bg-soft); border: 1px solid var(--line);
-  border-radius: 8px; list-style: none; padding: 6px 0;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 10px; list-style: none; padding: 8px 0;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
 }
 .nav-item.has-sub:hover .sub-menu,
 .nav-item.has-sub:focus-within .sub-menu { display: block; }
 .sub-menu a {
-  display: block; padding: 8px 16px; font-size: 0.88rem; color: var(--text-dim);
+  display: block; padding: 8px 18px; font-size: 0.88rem; color: var(--text-dim);
+  white-space: nowrap;
 }
 .sub-menu a:hover { color: var(--gold); background: var(--bg-card); }
+
+/* ── 히어로 (메인 전용) ───────────────── */
+.hero {
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 90% at 50% -10%, rgba(201, 169, 106, 0.16), transparent 60%),
+    linear-gradient(180deg, #131216 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  padding: 72px 20px 56px;
+}
+.hero-inner { max-width: 760px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block; font-size: 0.82rem; letter-spacing: 0.12em;
+  color: var(--gold); border: 1px solid rgba(201, 169, 106, 0.45);
+  border-radius: 20px; padding: 6px 18px; margin-bottom: 22px;
+  background: rgba(201, 169, 106, 0.07);
+}
+.hero h1 {
+  font-size: 2.3rem; line-height: 1.35; color: var(--gold-soft);
+  margin: 0 0 18px; border: none; padding: 0; font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.hero-lead {
+  font-size: 1.02rem; color: var(--text-dim); line-height: 1.9;
+  margin-bottom: 30px;
+}
+.hero-actions {
+  display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.hero-btn {
+  display: inline-block; padding: 14px 34px; border-radius: 30px;
+  font-weight: 700; font-size: 1rem;
+  border: 1px solid var(--gold); color: var(--gold);
+  transition: 0.15s;
+}
+.hero-btn:hover { background: rgba(201, 169, 106, 0.12); color: var(--gold); }
+.hero-btn.primary {
+  background: var(--gold); color: #15120b; font-weight: 800;
+  box-shadow: 0 8px 26px rgba(201, 169, 106, 0.25);
+}
+.hero-btn.primary:hover { background: var(--gold-soft); color: #15120b; }
+.hero-stats {
+  list-style: none; display: flex; justify-content: center;
+  gap: 0; margin: 0; padding: 0;
+  border-top: 1px solid var(--line);
+}
+.hero-stats li {
+  flex: 1; max-width: 170px; padding: 18px 10px 0; margin: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.hero-stats li + li { border-left: 1px solid var(--line); }
+.hero-stats strong { color: var(--gold); font-size: 1.25rem; font-weight: 800; }
+.hero-stats span { color: var(--text-dim); font-size: 0.82rem; }
 
 /* ── 본문 ───────────────────────────── */
 .site-main { padding: 40px 0 70px; }
@@ -94,7 +180,6 @@ h2 {
 }
 h3 { font-size: 1.02rem; color: var(--gold-soft); margin: 24px 0 8px; }
 p { margin: 0 0 14px; color: var(--text); }
-section > p, .lead { color: var(--text); }
 ul, ol { margin: 0 0 14px 22px; }
 li { margin-bottom: 6px; }
 
@@ -117,9 +202,9 @@ li { margin-bottom: 6px; }
   display: block; padding: 16px 14px; text-align: center;
   background: var(--bg-card); border: 1px solid var(--line);
   border-radius: 10px; color: var(--text); font-size: 0.95rem;
-  transition: border-color 0.15s, color 0.15s;
+  transition: border-color 0.15s, color 0.15s, transform 0.15s;
 }
-.card-grid a:hover { border-color: var(--gold); color: var(--gold); }
+.card-grid a:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
 
 /* 안내 박스 */
 .info-box {
@@ -141,6 +226,7 @@ li { margin-bottom: 6px; }
   background: linear-gradient(135deg, #1a1a20, #221d14);
   border: 1px solid var(--gold); border-radius: 12px;
 }
+.cta h2 { border: none; padding: 0; margin-top: 0; }
 .cta .cta-phone {
   display: inline-block; margin-top: 10px; padding: 12px 32px;
   background: var(--gold); color: #15120b; font-weight: 800;
@@ -173,25 +259,51 @@ th { background: var(--bg-soft); color: var(--gold-soft); }
 }
 .floating-call:hover { background: var(--gold-soft); color: #15120b; }
 
+/* ── 중간 화면: 메뉴 간격 축소 ─────────── */
+@media (max-width: 1080px) {
+  .nav-item > a { padding: 13px 9px; font-size: 0.88rem; }
+  .header-tagline { display: none; }
+}
+
 /* ── 모바일 ─────────────────────────── */
 @media (max-width: 920px) {
-  .nav-toggle { display: block; margin-left: auto; }
-  .header-call { margin-left: 0; }
+  html { scroll-padding-top: 76px; }
+  .nav-toggle { display: flex; }
+  .header-call .call-label { display: none; }
+  .header-call { padding: 7px 16px; font-size: 0.88rem; }
+  .header-top { border-bottom: none; }
+  .site-header { border-bottom: 1px solid var(--line); }
   .main-nav {
-    display: none; position: absolute; top: 64px; left: 0; right: 0;
-    background: var(--bg-soft); border-bottom: 1px solid var(--line);
-    max-height: calc(100vh - 64px); overflow-y: auto;
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--bg-soft); border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    max-height: calc(100vh - 62px); overflow-y: auto;
   }
   .main-nav.open { display: block; }
+  .nav-inner { padding: 0; }
   .nav-list { flex-direction: column; }
-  .nav-item > a { padding: 13px 20px; border-bottom: 1px solid var(--line); }
+  .nav-item > a {
+    padding: 13px 20px; border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  .nav-item.is-active > a { border-bottom-color: var(--line); }
+  .nav-item.has-sub > a::after { content: " ▾"; color: var(--text-dim); font-size: 0.8em; }
   .sub-menu {
-    position: static; display: none; border: none; border-radius: 0;
+    position: static; display: none; transform: none;
+    border: none; border-radius: 0;
     background: var(--bg); box-shadow: none; max-height: none;
   }
   .nav-item.sub-open .sub-menu { display: block; }
   .nav-item.has-sub:hover .sub-menu { display: none; }
   .nav-item.has-sub.sub-open:hover .sub-menu { display: block; }
-  .sub-menu a { padding: 10px 34px; }
+  .sub-menu a { padding: 10px 36px; white-space: normal; }
+
+  .hero { padding: 48px 20px 40px; }
+  .hero h1 { font-size: 1.6rem; }
+  .hero-lead br { display: none; }
+  .hero-stats { flex-wrap: wrap; }
+  .hero-stats li { flex: 1 1 40%; max-width: none; border-left: none !important; }
+  .hero-stats strong { font-size: 1.05rem; }
+
   h1 { font-size: 1.4rem; }
 }
