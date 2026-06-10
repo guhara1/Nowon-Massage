@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Yeti
+Allow: /
+
 Sitemap: https://www.nowon-black.example.com/sitemap.xml
+Sitemap: https://www.nowon-black.example.com/rss.xml

@@ -8,6 +8,7 @@ content/ 패키지의 페이지 정의를 읽어 정적 HTML을 생성한다.
   - sitemap.xml 에는 index 허용 페이지만 포함
   - 지역+역+테마 조합 경로는 생성 자체가 불가능한 구조
 """
+import datetime
 import html
 import os
 import re
@@ -17,7 +18,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from content import PAGES
-from content.site import (BASE_URL, BRAND, NAV, PHONE, PHONE_DISPLAY)
+from content.site import (BASE_URL, BRAND, INDEXNOW_KEY, NAV, PHONE, PHONE_DISPLAY)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 MIN_INDEX_CHARS = 2000
@@ -162,6 +163,7 @@ def render_page(page: dict) -> str:
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700;900&display=swap" rel="stylesheet">
+<link rel="alternate" type="application/rss+xml" title="{BRAND} 매거진" href="/rss.xml">
 <link rel="stylesheet" href="/assets/style.css">
 {extra_head}</head>
 <body>
@@ -252,7 +254,7 @@ def render_page(page: dict) -> str:
 
 def build() -> None:
     report = []
-    sitemap_urls = []
+    sitemap_paths = []
 
     for page in PAGES:
         path = page["path"]  # "" 또는 "nowon-gu/wolgye-dong/" 형태
@@ -265,26 +267,90 @@ def build() -> None:
         chars = text_length(page["body"])
         noindex = page.get("noindex", False) or chars < MIN_INDEX_CHARS
         if not noindex:
-            sitemap_urls.append(BASE_URL.rstrip("/") + "/" + path)
+            sitemap_paths.append(path)
         report.append((path or "/", chars, "noindex" if noindex else "index"))
 
-    # sitemap.xml
-    urls = "\n".join(
-        f"  <url><loc>{u}</loc></url>" for u in sitemap_urls
-    )
+    # sitemap.xml — lastmod·changefreq·priority 포함 (구글은 lastmod, 네이버는 changefreq 참고)
+    base = BASE_URL.rstrip("/")
+    today = datetime.date.today().isoformat()
+
+    def url_meta(path):
+        if path == "":
+            return today, "daily", "1.0"
+        if path in ("magazine/",):
+            return today, "daily", "0.8"
+        if path.startswith("magazine/"):
+            return None, "monthly", "0.7"   # lastmod는 글 날짜로 대체
+        if path in ("nowon-gu/", "nowon-gu/stations/", "themes/", "massage/", "courses/"):
+            return today, "weekly", "0.8"
+        return today, "weekly", "0.6"
+
+    page_dates = {p["path"]: p.get("date") for p in PAGES}
+    urls = []
+    for path in sitemap_paths:
+        lastmod, freq, prio = url_meta(path)
+        lastmod = page_dates.get(path) or lastmod or today
+        urls.append(
+            f"  <url><loc>{base}/{path}</loc>"
+            f"<lastmod>{lastmod}</lastmod>"
+            f"<changefreq>{freq}</changefreq>"
+            f"<priority>{prio}</priority></url>"
+        )
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write(
             '<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-            f"{urls}\n</urlset>\n"
+            + "\n".join(urls) + "\n</urlset>\n"
         )
 
-    # robots.txt
+    # rss.xml — 네이버 서치어드바이저 RSS 제출용 (구글도 RSS를 사이트맵으로 수용)
+    def rfc822(d):
+        dt = datetime.datetime.strptime(d, "%Y-%m-%d")
+        return dt.strftime("%a, %d %b %Y 09:00:00 +0900")
+
+    posts = sorted(
+        (p for p in PAGES if p.get("date")),
+        key=lambda p: p["date"], reverse=True,
+    )
+    items = []
+    for p in posts:
+        items.append(
+            "  <item>\n"
+            f"    <title><![CDATA[{p['h1']}]]></title>\n"
+            f"    <link>{base}/{p['path']}</link>\n"
+            f"    <guid isPermaLink=\"true\">{base}/{p['path']}</guid>\n"
+            f"    <description><![CDATA[{p['desc']}]]></description>\n"
+            f"    <pubDate>{rfc822(p['date'])}</pubDate>\n"
+            "  </item>"
+        )
+    with open(os.path.join(ROOT, "rss.xml"), "w", encoding="utf-8") as f:
+        f.write(
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
+            "<channel>\n"
+            f"  <title>{BRAND} 매거진</title>\n"
+            f"  <link>{base}/</link>\n"
+            "  <description>노원 출장마사지·홈타이 안내와 마사지·휴식·컨디션 관리 가이드</description>\n"
+            "  <language>ko</language>\n"
+            f"  <lastBuildDate>{rfc822(today)}</lastBuildDate>\n"
+            f'  <atom:link href="{base}/rss.xml" rel="self" type="application/rss+xml"/>\n'
+            + "\n".join(items) + "\n</channel>\n</rss>\n"
+        )
+
+    # robots.txt — 구글봇·네이버 Yeti 명시 + 사이트맵·RSS 동시 선언
     with open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8") as f:
         f.write(
             "User-agent: *\nAllow: /\n\n"
-            f"Sitemap: {BASE_URL.rstrip('/')}/sitemap.xml\n"
+            "User-agent: Googlebot\nAllow: /\n\n"
+            "User-agent: Googlebot-Image\nAllow: /\n\n"
+            "User-agent: Yeti\nAllow: /\n\n"
+            f"Sitemap: {base}/sitemap.xml\n"
+            f"Sitemap: {base}/rss.xml\n"
         )
+
+    # IndexNow 키 파일 — https://도메인/{키}.txt 로 접근 가능해야 한다
+    with open(os.path.join(ROOT, f"{INDEXNOW_KEY}.txt"), "w", encoding="utf-8") as f:
+        f.write(INDEXNOW_KEY)
 
     # .nojekyll (GitHub Pages)
     open(os.path.join(ROOT, ".nojekyll"), "w").close()
@@ -294,7 +360,7 @@ def build() -> None:
     for p, c, r in sorted(report):
         flag = "" if (r == "noindex" or MIN_INDEX_CHARS <= c <= 2500) else "  ⚠"
         print(f"{p.ljust(width)}  {str(c).rjust(5)}  {r}{flag}")
-    print(f"\n{len(report)} pages built, {len(sitemap_urls)} in sitemap.")
+    print(f"\n{len(report)} pages built, {len(sitemap_paths)} in sitemap, {len(posts)} in rss.")
 
 
 if __name__ == "__main__":

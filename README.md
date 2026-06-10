@@ -41,5 +41,19 @@ python3 build.py
 ## 배포 전 해야 할 일
 
 1. `content/site.py`의 `BASE_URL`을 실제 도메인으로 변경
-2. `python3 build.py` 재실행 (canonical·sitemap·robots.txt에 반영됨)
-3. Google Search Console에 `sitemap.xml` 제출
+2. `python3 build.py` 재실행 (canonical·sitemap·rss·robots.txt에 반영됨)
+3. HTTPS 활성화 확인
+
+## 색인(인덱싱) 가속 절차
+
+빌드가 자동 생성하는 것: `sitemap.xml`(lastmod·priority 포함, 50 URL),
+`rss.xml`(매거진 피드), `robots.txt`(Googlebot·Yeti 명시 + 사이트맵·RSS 선언),
+IndexNow 키 파일(`{키}.txt`).
+
+1. **구글**: Search Console 등록 → `sitemap.xml` 제출 → 메인·허브 URL을
+   'URL 검사 → 색인 생성 요청'으로 수동 요청 (가장 빠른 트리거)
+2. **네이버**: 서치어드바이저 소유확인(메타태그 등록됨) → 사이트맵 `sitemap.xml`
+   제출 + RSS `rss.xml` 제출 → '웹 페이지 수집' 요청으로 주요 URL 수동 수집
+3. **IndexNow**(네이버·빙 즉시 통보): 배포 후 `python3 scripts/indexnow.py` 실행
+   → 전체 URL 일괄 제출. 새 글 발행 시 `python3 scripts/indexnow.py /magazine/slug/`
+4. 새 콘텐츠 발행 시: 빌드 → 배포 → IndexNow 제출 → (선택) 서치콘솔 색인 요청
