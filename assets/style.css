@@ -357,6 +357,33 @@ strong { color: var(--gold-soft); font-weight: 700; }
 }
 .cta .cta-phone:hover { filter: brightness(1.07); color: #120e06; }
 
+/* 매거진 */
+.post-meta {
+  font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.06em;
+  margin: -6px 0 26px;
+}
+.post-meta time { color: var(--gold); }
+.post-list { list-style: none; margin: 6px 0 0; }
+.post-list li { margin: 0 0 12px; }
+.post-list a {
+  display: block; padding: 20px 24px;
+  background: var(--panel-2); border: 1px solid var(--line);
+  border-radius: 14px; transition: 0.18s;
+}
+.post-list a:hover {
+  border-color: var(--gold); transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+.post-list strong {
+  display: block; font-family: var(--serif);
+  font-size: 1.05rem; color: var(--gold-soft); margin-bottom: 6px;
+}
+.post-list span {
+  display: block; font-size: 0.88rem; color: var(--text-dim);
+  line-height: 1.7; margin-bottom: 8px;
+}
+.post-list time { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.08em; }
+
 /* 표 */
 table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
 th, td { border: 1px solid var(--line); padding: 11px 14px; text-align: left; }

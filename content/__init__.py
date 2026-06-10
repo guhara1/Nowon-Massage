@@ -1,4 +1,4 @@
 # 전체 페이지 목록 집계
-from . import main, areas, stations, themes, info
+from . import main, areas, stations, themes, info, magazine
 
-PAGES = [main.PAGE] + areas.PAGES + stations.PAGES + themes.PAGES + info.PAGES
+PAGES = [main.PAGE] + areas.PAGES + stations.PAGES + themes.PAGES + info.PAGES + magazine.PAGES

@@ -88,6 +88,15 @@ NAV = [
         ("금지행위 안내", "/guide/#prohibited"),
         ("이용 FAQ", "/guide/#faq"),
     ]),
+    ("매거진", "/magazine/", [
+        ("전체 글", "/magazine/"),
+        ("마사지 비교 가이드", "/magazine/swedish-vs-thai/"),
+        ("처음 이용 가이드", "/magazine/first-time-guide/"),
+        ("수면과 마사지", "/magazine/sleep-and-massage/"),
+        ("운동 후 회복", "/magazine/post-workout-timing/"),
+        ("어깨·목 결림 관리", "/magazine/neck-shoulder-care/"),
+        ("부모님 선물 가이드", "/magazine/parents-gift/"),
+    ]),
     ("후기", "/reviews/", [
         ("전체 후기", "/reviews/"),
         ("지역별 후기", "/reviews/#area"),
