@@ -159,10 +159,11 @@ def render_page(page: dict) -> str:
 {extra_head}</head>
 <body>
 <header class="site-header">
+  <div class="header-accent" aria-hidden="true"></div>
   <div class="header-top">
     <div class="header-inner">
-      <a class="brand" href="/"><span class="brand-mark">N</span> {BRAND}</a>
-      <p class="header-tagline">노원구 전지역 방문 관리 · 24시간 상담</p>
+      <a class="brand" href="/"><span class="brand-mark">N</span> <span class="brand-text">{BRAND}</span></a>
+      <p class="header-tagline"><span class="tag-gem">◆</span> 노원구 전지역 방문 관리 <span class="tag-gem">◆</span> 24시간 상담</p>
       <a class="header-call" href="tel:{PHONE}"><span class="call-label">예약전화</span> {PHONE_DISPLAY}</a>
       <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
@@ -227,6 +228,7 @@ def render_page(page: dict) -> str:
     <div class="container footer-bottom-inner">
       <p class="footer-copy">&copy; {BRAND}. All rights reserved.</p>
       <p class="footer-note">건전한 방문 관리 서비스를 운영하며, 불법적인 요청은 어떤 경우에도 응하지 않습니다.</p>
+      <a class="footer-made" href="https://t.me/googleseolab" target="_blank" rel="noopener nofollow">웹사이트 제작문의 ↗</a>
     </div>
   </div>
 </footer>

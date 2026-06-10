@@ -41,47 +41,95 @@ a:hover { color: var(--gold); }
 /* ── 헤더 ─────────────────────────────── */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(7, 11, 20, 0.92);
+  background:
+    radial-gradient(ellipse 46% 130% at 50% -30%, rgba(200, 162, 94, 0.10), transparent 70%),
+    radial-gradient(ellipse 30% 100% at 100% 0%, rgba(40, 60, 110, 0.35), transparent 70%),
+    rgba(7, 11, 20, 0.94);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(12px);
 }
-.header-top { border-bottom: 1px solid var(--line); }
+/* 최상단 골드 액센트 라인 — 은은하게 흐르는 빛 */
+.header-accent {
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%, #6e5526 18%, var(--gold) 38%,
+    #f4e8c6 50%, var(--gold) 62%, #6e5526 82%, transparent 100%);
+  background-size: 200% 100%;
+  animation: accent-flow 7s linear infinite;
+}
+@keyframes accent-flow {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.header-top { border-bottom: 1px solid rgba(200, 162, 94, 0.16); }
 .header-inner {
   max-width: var(--max); margin: 0 auto; padding: 0 24px;
-  display: flex; align-items: center; gap: 20px; min-height: 66px;
+  display: flex; align-items: center; gap: 20px; min-height: 68px;
 }
 .brand {
   font-family: var(--serif);
-  font-size: 1.22rem; font-weight: 900; color: var(--gold-soft);
+  font-size: 1.24rem; font-weight: 900;
   letter-spacing: 0.12em; white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 10px;
+  display: inline-flex; align-items: center; gap: 11px;
 }
-.brand:hover { color: var(--gold-soft); }
+/* 브랜드 텍스트 — 골드 메탈 그라데이션 */
+.brand-text {
+  background: linear-gradient(120deg, #f4e8c6 0%, var(--gold-soft) 30%, var(--gold) 55%, #f0deae 80%, var(--gold) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
 .brand-mark {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 34px; height: 34px;
-  border: 1px solid var(--gold); border-radius: 50%;
-  font-size: 0.9rem; color: var(--gold);
-  background: radial-gradient(circle at 30% 25%, rgba(200,162,94,0.25), transparent 70%);
+  width: 36px; height: 36px; border-radius: 50%;
+  font-size: 0.92rem; font-weight: 900; color: #120e06;
+  background: linear-gradient(135deg, #f4e8c6, var(--gold) 55%, var(--gold-deep));
+  box-shadow:
+    0 0 0 1px rgba(200, 162, 94, 0.5),
+    0 0 0 5px rgba(200, 162, 94, 0.08),
+    0 4px 14px rgba(200, 162, 94, 0.3);
 }
+.brand:hover .brand-mark { box-shadow:
+  0 0 0 1px rgba(200, 162, 94, 0.7),
+  0 0 0 5px rgba(200, 162, 94, 0.14),
+  0 4px 20px rgba(200, 162, 94, 0.45); }
 .header-tagline {
   font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.18em;
-  border-left: 1px solid var(--line); padding-left: 20px; white-space: nowrap;
+  border-left: 1px solid rgba(200, 162, 94, 0.22); padding-left: 20px;
+  white-space: nowrap;
 }
+.tag-gem { color: var(--gold); font-size: 0.55rem; vertical-align: 1px; }
+/* 전화 버튼 — 주기적으로 샤인이 지나가는 골드 버튼 */
 .header-call {
-  margin-left: auto; white-space: nowrap; font-weight: 700;
+  position: relative; overflow: hidden;
+  margin-left: auto; white-space: nowrap; font-weight: 800;
   color: #120e06;
-  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
-  border-radius: 26px; padding: 9px 22px; font-size: 0.95rem;
+  background: linear-gradient(135deg, #f0deae, var(--gold) 60%, var(--gold-deep));
+  border-radius: 26px; padding: 10px 24px; font-size: 0.95rem;
   display: inline-flex; align-items: center; gap: 9px;
-  box-shadow: 0 6px 20px rgba(200, 162, 94, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 224, 0.65),
+    0 6px 22px rgba(200, 162, 94, 0.32);
   transition: 0.15s;
 }
-.header-call:hover { filter: brightness(1.08); color: #120e06; }
+.header-call::after {
+  content: ""; position: absolute; top: -40%; bottom: -40%;
+  width: 36px; left: -60px;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transform: skewX(-20deg);
+  animation: call-shine 4.5s ease-in-out infinite;
+}
+@keyframes call-shine {
+  0%, 64% { left: -60px; }
+  82%, 100% { left: calc(100% + 60px); }
+}
+.header-call:hover { filter: brightness(1.06); color: #120e06; transform: translateY(-1px); }
 .call-label {
-  font-size: 0.7rem; font-weight: 600; opacity: 0.7;
+  font-size: 0.7rem; font-weight: 700; opacity: 0.72;
   border-right: 1px solid rgba(18, 14, 6, 0.3); padding-right: 9px;
   letter-spacing: 0.08em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .header-accent, .header-call::after { animation: none; }
 }
 
 /* 햄버거 */
@@ -107,11 +155,21 @@ a:hover { color: var(--gold); }
 }
 .nav-item { position: relative; }
 .nav-item > a {
+  position: relative;
   display: block; padding: 14px 15px; font-size: 0.93rem;
   letter-spacing: 0.04em; color: var(--text);
-  white-space: nowrap; border-bottom: 2px solid transparent;
+  white-space: nowrap;
 }
-.nav-item.is-active > a { color: var(--gold); border-bottom-color: var(--gold); }
+/* 가운데서 펼쳐지는 골드 언더라인 */
+.nav-item > a::after {
+  content: ""; position: absolute; left: 15px; right: 15px; bottom: 8px;
+  height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-soft), var(--gold-deep));
+  transform: scaleX(0); transform-origin: center;
+  transition: transform 0.22s ease;
+}
+.nav-item > a:hover::after, .nav-item.is-active > a::after { transform: scaleX(1); }
+.nav-item.is-active > a { color: var(--gold); }
 .nav-item > a:hover { color: var(--gold-soft); }
 .sub-menu {
   display: none; position: absolute; top: 100%; left: 50%;
@@ -431,6 +489,12 @@ th { background: var(--panel-2); color: var(--gold-soft); font-family: var(--ser
 }
 .footer-copy { font-size: 0.78rem; opacity: 0.75; margin: 0; }
 .footer-note { font-size: 0.76rem; opacity: 0.55; margin: 0; }
+.footer-made {
+  font-size: 0.76rem; color: var(--text-dim);
+  border: 1px solid var(--line); border-radius: 16px;
+  padding: 4px 14px; white-space: nowrap; transition: 0.15s;
+}
+.footer-made:hover { color: var(--gold-soft); border-color: var(--line-gold); }
 
 @media (max-width: 920px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; padding-top: 36px; }
@@ -522,6 +586,7 @@ th { background: var(--panel-2); color: var(--gold-soft); font-family: var(--ser
     padding: 14px 22px; border-bottom: 1px solid var(--line);
     font-size: 0.95rem;
   }
+  .nav-item > a::after { display: none; }
   .nav-item.is-active > a { border-bottom-color: var(--line); }
   .nav-item.has-sub > a::after { content: " ▾"; color: var(--text-dim); font-size: 0.8em; }
   .sub-menu {
