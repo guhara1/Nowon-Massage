@@ -2,50 +2,50 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
   <title>노원 블랙 마사지 매거진</title>
-  <link>https://nowon-massage.pages.dev/</link>
+  <link>https://nowon-massage.netlify.app/</link>
   <description>노원 출장마사지·홈타이 안내와 마사지·휴식·컨디션 관리 가이드</description>
   <language>ko</language>
-  <lastBuildDate>Wed, 10 Jun 2026 09:00:00 +0900</lastBuildDate>
-  <atom:link href="https://nowon-massage.pages.dev/rss.xml" rel="self" type="application/rss+xml"/>
+  <lastBuildDate>Mon, 29 Jun 2026 09:00:00 +0900</lastBuildDate>
+  <atom:link href="https://nowon-massage.netlify.app/rss.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title><![CDATA[스웨디시 vs 타이마사지, 나에게 맞는 쪽은?]]></title>
-    <link>https://nowon-massage.pages.dev/magazine/swedish-vs-thai/</link>
-    <guid isPermaLink="true">https://nowon-massage.pages.dev/magazine/swedish-vs-thai/</guid>
+    <link>https://nowon-massage.netlify.app/magazine/swedish-vs-thai/</link>
+    <guid isPermaLink="true">https://nowon-massage.netlify.app/magazine/swedish-vs-thai/</guid>
     <description><![CDATA[스웨디시와 타이마사지의 차이를 압·복장·샤워·받은 후 느낌·목적 다섯 가지 기준으로 비교했습니다. 처음 받는 분을 위한 선택 가이드.]]></description>
     <pubDate>Mon, 08 Jun 2026 09:00:00 +0900</pubDate>
   </item>
   <item>
     <title><![CDATA[출장마사지 처음 이용자가 가장 많이 묻는 10가지]]></title>
-    <link>https://nowon-massage.pages.dev/magazine/first-time-guide/</link>
-    <guid isPermaLink="true">https://nowon-massage.pages.dev/magazine/first-time-guide/</guid>
+    <link>https://nowon-massage.netlify.app/magazine/first-time-guide/</link>
+    <guid isPermaLink="true">https://nowon-massage.netlify.app/magazine/first-time-guide/</guid>
     <description><![CDATA[출장마사지가 처음인 분들이 예약 전화에서 실제로 묻는 질문 10가지를 골라 답했습니다. 준비물, 공간, 복장, 안전, 결제까지 솔직한 가이드.]]></description>
     <pubDate>Fri, 05 Jun 2026 09:00:00 +0900</pubDate>
   </item>
   <item>
     <title><![CDATA[잠이 얕아진 당신에게, 수면과 마사지의 관계]]></title>
-    <link>https://nowon-massage.pages.dev/magazine/sleep-and-massage/</link>
-    <guid isPermaLink="true">https://nowon-massage.pages.dev/magazine/sleep-and-massage/</guid>
+    <link>https://nowon-massage.netlify.app/magazine/sleep-and-massage/</link>
+    <guid isPermaLink="true">https://nowon-massage.netlify.app/magazine/sleep-and-massage/</guid>
     <description><![CDATA[마사지가 수면의 질을 높이는 생리학적 원리와, 자기 전 받는 저녁 관리를 설계하는 법을 정리했습니다. 불면이 길어진 분을 위한 현실적인 가이드.]]></description>
     <pubDate>Mon, 01 Jun 2026 09:00:00 +0900</pubDate>
   </item>
   <item>
     <title><![CDATA[운동 후 마사지, 언제 받아야 효과가 가장 클까]]></title>
-    <link>https://nowon-massage.pages.dev/magazine/post-workout-timing/</link>
-    <guid isPermaLink="true">https://nowon-massage.pages.dev/magazine/post-workout-timing/</guid>
+    <link>https://nowon-massage.netlify.app/magazine/post-workout-timing/</link>
+    <guid isPermaLink="true">https://nowon-massage.netlify.app/magazine/post-workout-timing/</guid>
     <description><![CDATA[운동 직후, 당일 저녁, 다음 날 중 언제 마사지를 받아야 회복 효과가 가장 큰지 정리했습니다. 러닝·웨이트·골프 등 종목별 회복 포인트 포함.]]></description>
     <pubDate>Wed, 27 May 2026 09:00:00 +0900</pubDate>
   </item>
   <item>
     <title><![CDATA[거북목 시대의 어깨·목 결림, 풀리는 관리와 버티는 습관]]></title>
-    <link>https://nowon-massage.pages.dev/magazine/neck-shoulder-care/</link>
-    <guid isPermaLink="true">https://nowon-massage.pages.dev/magazine/neck-shoulder-care/</guid>
+    <link>https://nowon-massage.netlify.app/magazine/neck-shoulder-care/</link>
+    <guid isPermaLink="true">https://nowon-massage.netlify.app/magazine/neck-shoulder-care/</guid>
     <description><![CDATA[모니터와 스마트폰이 만든 어깨·목 결림의 진짜 원인과, 셀프 스트레칭의 한계, 전문 관리가 필요한 신호를 정리했습니다. 자세 습관 가이드 포함.]]></description>
     <pubDate>Fri, 22 May 2026 09:00:00 +0900</pubDate>
   </item>
   <item>
     <title><![CDATA[부모님께 마사지를 선물하는 법, 실패하지 않는 대리 예약 가이드]]></title>
-    <link>https://nowon-massage.pages.dev/magazine/parents-gift/</link>
-    <guid isPermaLink="true">https://nowon-massage.pages.dev/magazine/parents-gift/</guid>
+    <link>https://nowon-massage.netlify.app/magazine/parents-gift/</link>
+    <guid isPermaLink="true">https://nowon-massage.netlify.app/magazine/parents-gift/</guid>
     <description><![CDATA[부모님께 방문 마사지를 선물할 때 자녀가 챙겨야 할 것들을 정리했습니다. 어르신 관리의 차이점, 대리 예약 절차, 건강 상태 확인 체크리스트.]]></description>
     <pubDate>Mon, 18 May 2026 09:00:00 +0900</pubDate>
   </item>
