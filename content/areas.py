@@ -2,6 +2,7 @@
 # 숫자 행정동(월계1동, 상계7동 등) 개별 페이지는 만들지 않는다.
 from .site import PHONE, PHONE_DISPLAY
 from .pricing import PRICING
+from .related import related_block
 
 _CTA = f"""
 <section class="cta">
@@ -57,16 +58,23 @@ _HUB_BODY = """
 <p>경계 지역은 어느 동 페이지를 보셔도 무방합니다. 실제 방문은 주소 기준으로 진행되므로 예약 전화에서 정확한 주소만 알려주시면 됩니다.</p>
 </div>
 </section>
-""" + PRICING + _CTA
+""" + related_block([
+    ("노원구 지하철역별 방문 안내", "1·4·6·7호선 13개 역세권", "/nowon-gu/stations/"),
+    ("테마별 관리 한눈에 비교", "스웨디시·타이·아로마 등 14종", "/themes/"),
+    ("출장마사지 처음 이용 가이드", "첫 이용자가 묻는 10가지", "/magazine/first-time-guide/"),
+    ("코스별 기본 요금 안내", "60·90·120분 투명 요금", "/courses/"),
+    ("이용 후기·평점 모아보기", "지역·테마별 실이용 후기", "/reviews/"),
+], title="노원구 방문 관리, 이렇게도 찾아보세요") + PRICING + _CTA
 
 
-def _dong(slug, name, title_name, desc, sections):
+def _dong(slug, name, title_name, desc, sections, related=None):
+    rel = related_block(related, title=f"{name} 이용자가 함께 본 안내") if related else ""
     return {
         "path": f"nowon-gu/{slug}/",
         "title": f"{title_name} 출장마사지·홈타이 | 노원 방문 관리 예약 안내",
         "desc": desc,
         "h1": f"{name} 방문 관리 안내",
-        "body": sections + PRICING + _CTA,
+        "body": sections + rel + PRICING + _CTA,
         "breadcrumb": [("지역별 안내", "/nowon-gu/"), (name, None)],
     }
 
@@ -126,7 +134,14 @@ WOLGYE = _dong(
 <p>매트 한 장을 펼 자리면 충분하고 침대 위 진행도 가능합니다. 예약 시 공간 상황을 말씀해 주시면 맞는 방식으로 준비해 갑니다.</p>
 </div>
 </section>
-""")
+""",
+    related=[
+        ("월계동 원룸·자취방 1인 홈케어", "좁은 공간도 매트 한 장이면 충분", "/themes/homecare/"),
+        ("광운대역 인근 심야 방문 안내", "늦은 귀가 후 24시간 예약", "/themes/24hours/"),
+        ("월계역·석계역 역세권 방문", "1·6호선 역 기준 위치 안내", "/nowon-gu/stations/wolgye-station/"),
+        ("스웨디시 vs 타이마사지 비교", "처음이라면 무엇부터 받을까", "/magazine/swedish-vs-thai/"),
+        ("코스별 기본 요금·시간 안내", "60·90·120분 코스 한눈에", "/courses/"),
+    ])
 
 GONGNEUNG = _dong(
     "gongneung-dong", "공릉동", "공릉동",
@@ -183,7 +198,14 @@ GONGNEUNG = _dong(
 <p>외부인 출입이 통제되는 기숙사는 어렵습니다. 인근 다른 장소에서 받는 방법을 함께 찾아드릴 수 있으니 전화로 상담해 주세요.</p>
 </div>
 </section>
-""")
+""",
+    related=[
+        ("공릉동 운동 후 회복 스포츠 관리", "숲길 러닝·자전거 후 다리 풀기", "/themes/sports/"),
+        ("공릉역·태릉입구역 역세권 방문", "7·6호선 역 기준 위치 안내", "/nowon-gu/stations/gongneung-station/"),
+        ("대학생 자취방 발마사지", "오래 앉은 다리 피로 집중 관리", "/themes/foot/"),
+        ("운동 후 마사지 언제 받을까", "타이밍별 회복 효과 가이드", "/magazine/post-workout-timing/"),
+        ("아로마로 향과 함께 쉬는 날", "조용한 휴식형 코스 안내", "/themes/aroma/"),
+    ])
 
 HAGYE = _dong(
     "hagye-dong", "하계동", "하계동",
@@ -240,7 +262,14 @@ HAGYE = _dong(
 <p>수술 부위와 시기에 따라 다릅니다. 예약 시 상태를 알려주시면 가능한 범위로 구성하거나, 아직 이르다면 솔직하게 말씀드립니다.</p>
 </div>
 </section>
-""")
+""",
+    related=[
+        ("하계동 부부 커플 동시 관리", "거실에서 나란히 받는 2인 구성", "/themes/couple/"),
+        ("부모님 마사지 선물 대리예약", "어르신 관리 체크리스트", "/magazine/parents-gift/"),
+        ("하계역 대단지 아파트 방문", "공동현관·단지 출입 안내", "/nowon-gu/stations/hagye-station/"),
+        ("어깨·허리 결림 경락 관리", "묵직한 피로 깊은 압으로", "/themes/sports/"),
+        ("천변 운동 후 발·다리 관리", "등나무공원 산책 후 회복", "/themes/foot/"),
+    ])
 
 JUNGGYE = _dong(
     "junggye-dong", "중계동", "중계동",
@@ -297,7 +326,14 @@ JUNGGYE = _dong(
 <p>네, 심야 예약도 받고 있습니다. 다만 배정 확인이 필요하니 일정이 보이는 대로 미리 연락 주시면 대기 없이 받으실 수 있습니다.</p>
 </div>
 </section>
-""")
+""",
+    related=[
+        ("중계동 학원가 심야 방문 안내", "자정 무렵 24시간 예약", "/themes/24hours/"),
+        ("거북목·어깨 결림 풀기 가이드", "오래 앉는 분을 위한 관리", "/magazine/neck-shoulder-care/"),
+        ("은행사거리 인근 역세권 방문", "중계역·마들역 기준 위치", "/nowon-gu/stations/junggye-station/"),
+        ("수험생·학부모 타이마사지", "목·어깨 스트레칭 집중", "/themes/thai/"),
+        ("잠 못 드는 밤 수면 마사지", "자기 전 이완 관리 설계", "/magazine/sleep-and-massage/"),
+    ])
 
 SANGGYE = _dong(
     "sanggye-dong", "상계동", "상계동",
@@ -354,7 +390,14 @@ SANGGYE = _dong(
 <p>상계동 주소라면 모두 방문 범위이고, 경계 너머 인접 지역도 위치에 따라 가능할 수 있습니다. 주소를 알려주시면 바로 확인해 드립니다.</p>
 </div>
 </section>
-""")
+""",
+    related=[
+        ("노원역 숙소·오피스텔 심야 방문", "체크인 후 호텔식 관리", "/themes/hotel-style/"),
+        ("수락산·불암산 산행 후 회복", "하체 경락·발마사지 조합", "/themes/sports/"),
+        ("노원역 4·7호선 역세권 방문", "환승역 기준 위치 안내", "/nowon-gu/stations/nowon-station/"),
+        ("관리 후 그대로 자는 수면 코스", "심야 이용·결제 미리 안내", "/themes/overnight/"),
+        ("로미로미 깊은 오일 이완", "스웨디시보다 한 단계 깊게", "/themes/lomilomi/"),
+    ])
 
 HUB = {
     "path": "nowon-gu/",

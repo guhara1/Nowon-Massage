@@ -1,73 +1,22 @@
 # 메인 페이지 — 허브 역할. 모든 키워드를 밀어 넣지 않고 상세 페이지로 연결한다.
 from .site import BASE_URL, BRAND, PHONE, PHONE_DISPLAY
 from .pricing import PRICING
+from .related import related_block
 
-_JSONLD = f"""<meta name="naver-site-verification" content="fab038509ca37bbd73ea49b0e69c1c4537299110" />
-<script type="application/ld+json">
-{{
-  "@context": "https://schema.org",
-  "@type": "HealthAndBeautyBusiness",
-  "name": "{BRAND}",
-  "telephone": "{PHONE}",
-  "url": "{BASE_URL}/",
-  "image": "{BASE_URL}/assets/og-image.png",
-  "description": "노원구 전지역 방문 출장마사지·홈타이 예약 안내",
-  "areaServed": {{
-    "@type": "AdministrativeArea",
-    "name": "서울특별시 노원구"
-  }},
-  "openingHours": "Mo-Su 00:00-24:00",
-  "priceRange": "₩90,000 - ₩180,000"
-}}
-</script>
-<script type="application/ld+json">
-{{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {{
-      "@type": "Question",
-      "name": "노원구 전지역 방문이 가능한가요?",
-      "acceptedAnswer": {{
-        "@type": "Answer",
-        "text": "예약 시간, 정확한 위치, 배정 상황에 따라 가능 여부가 달라집니다. 지역별 안내 페이지에서 월계동, 공릉동, 하계동, 중계동, 상계동 기준으로 확인할 수 있습니다."
-      }}
-    }},
-    {{
-      "@type": "Question",
-      "name": "노원역이나 상계역 근처도 가능한가요?",
-      "acceptedAnswer": {{
-        "@type": "Answer",
-        "text": "주요 역세권은 역 상세 페이지에서 주변 생활권과 함께 안내합니다. 정확한 가능 여부는 예약 시 위치를 기준으로 확인합니다."
-      }}
-    }},
-    {{
-      "@type": "Question",
-      "name": "상계1동과 상계2동은 왜 따로 없나요?",
-      "acceptedAnswer": {{
-        "@type": "Answer",
-        "text": "상계1동부터 상계10동까지는 상계동 대표 페이지에서 통합 안내하여 중복 페이지 위험을 줄입니다."
-      }}
-    }},
-    {{
-      "@type": "Question",
-      "name": "당일 예약도 가능한가요?",
-      "acceptedAnswer": {{
-        "@type": "Answer",
-        "text": "가능할 수 있지만 저녁 시간대와 주말은 문의가 많을 수 있어 사전 예약을 권장합니다."
-      }}
-    }},
-    {{
-      "@type": "Question",
-      "name": "테마별 관리는 어디에서 확인하나요?",
-      "acceptedAnswer": {{
-        "@type": "Answer",
-        "text": "스웨디시, 타이마사지, 홈케어 등 테마별 안내 페이지에서 특징과 추천 대상을 확인할 수 있습니다."
-      }}
-    }}
-  ]
-}}
-</script>
+_RELATED = related_block([
+    ("노원 심야 24시간 출장마사지", "늦은 밤·새벽 방문 이용 기준", "/themes/24hours/"),
+    ("스웨디시 vs 타이마사지 비교", "처음이라면 무엇부터 받을까", "/magazine/swedish-vs-thai/"),
+    ("커플·부부 홈타이 동시 관리", "두 사람이 함께 받는 구성", "/themes/couple/"),
+    ("부모님 마사지 선물 대리예약", "어르신 관리 체크리스트", "/magazine/parents-gift/"),
+    ("운동 후 회복 마사지 타이밍", "직후·당일·다음 날 차이", "/magazine/post-workout-timing/"),
+    ("이용 후기·평점 모아보기", "지역·테마별 실이용 후기", "/reviews/"),
+], title="자주 찾는 주제별 안내")
+
+# 네이버 서치어드바이저 소유확인 메타태그.
+# 사업체(LocalBusiness)·FAQPage·WebSite 구조화 데이터는 content/schema.py에서
+# 전 페이지 공통으로 자동 생성되므로 여기서는 인증 태그만 둔다.
+_JSONLD = """<meta name="naver-site-verification" content="fab038509ca37bbd73ea49b0e69c1c4537299110" />
+<meta name="naver-site-verification" content="b79c9c552f7a6d133398236200a78ee687d8b537" />
 """
 
 _HERO = f"""<section class="hero">
@@ -199,6 +148,7 @@ _BODY = f"""
 </section>
 
 {PRICING}
+{_RELATED}
 <section id="contact" class="cta">
 <h2>예약문의</h2>
 <p>노원구 방문 관리 예약과 상담은 전화로 가장 빠르게 진행됩니다. 위치와 희망 시간을 알려주시면 가능 여부를 바로 확인해 드립니다.</p>
