@@ -1,0 +1,17 @@
+# Netlify 배포 설정 — 노원 블랙 마사지 정적 사이트
+# build.py(파이썬 표준 라이브러리만 사용)로 HTML·sitemap·rss·robots를 생성한 뒤
+# 저장소 루트를 그대로 게시한다.
+
+[build]
+  command = "python3 build.py"
+  publish = "."
+
+[build.environment]
+  PYTHON_VERSION = "3.11"
+
+# 디렉터리 경로(/massage/ 등)는 해당 폴더의 index.html 을 서빙한다.
+# 존재하지 않는 경로는 루트의 404.html 로 응답한다.
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

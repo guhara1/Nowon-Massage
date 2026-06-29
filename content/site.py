@@ -1,5 +1,5 @@
 # 사이트 공통 설정
-BASE_URL = "https://nowon-massage.pages.dev"
+BASE_URL = "https://nowon-massage.netlify.app"
 
 BRAND = "노원 블랙 마사지"
 PHONE = "0508-202-4719"
