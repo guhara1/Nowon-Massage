@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from content import PAGES
 from content.site import (BASE_URL, BRAND, INDEXNOW_KEY, NAV, PHONE, PHONE_DISPLAY)
+from content.schema import build_structured_data
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 MIN_INDEX_CHARS = 2000
@@ -135,6 +136,9 @@ def render_page(page: dict) -> str:
     body, toc_items = inject_toc(body)
     toc_html = render_toc(toc_items)
     layout_cls = "page-layout has-toc" if toc_html else "page-layout"
+
+    # 구조화 데이터(JSON-LD) 자동 주입: BreadcrumbList·FAQPage·사업체·Service·후기
+    extra_head = extra_head + build_structured_data(page, body)
 
     return f"""<!DOCTYPE html>
 <html lang="ko">
